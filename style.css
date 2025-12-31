@@ -220,3 +220,164 @@ footer {
 .blue-button:hover {
     background-color: #3D4E40;
 }   
+
+/* Welcome Page Specific Styles */
+.welcome-body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Stops scrolling on the welcome page */
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #2C1E14; /* Fallback color */
+}
+
+.gif-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.gif-background img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Makes the GIF cover the whole screen without stretching */
+    opacity: 0.6; /* Darkens it so the text is easier to read */
+}
+
+.welcome-content {
+    text-align: center;
+    color: #F8F4ED;
+}
+
+.welcome-content h1 {
+    font-size: 4rem;
+    color: #F8F4ED;
+    margin-bottom: 10px;
+}
+
+.enter-button {
+    display: inline-block;
+    margin-top: 30px;
+    padding: 15px 40px;
+    background-color: transparent;
+    color: #F8F4ED;
+    border: 2px solid #F8F4ED;
+    text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    letter-spacing: 2px;
+    transition: all 0.4s ease;
+}
+
+.enter-button:hover {
+    background-color: #F8F4ED;
+    color: #6F4E37;
+}
+
+/* Fading Animations */
+.fade-in {
+    animation: fadeIn ease 2s;
+}
+
+.fade-in-delayed {
+    animation: fadeIn ease 4s;
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+/* This creates a smooth fade-up effect */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Apply it to your hero text and explore cards */
+.hero-text-block, .explore-card {
+    animation: fadeUp 1s ease-out forwards;
+}
+
+/* Welcome Page Specific Styles */
+.welcome-body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Stops scrolling on the welcome page */
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #2C1E14; /* Fallback color */
+}
+
+.gif-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.gif-background img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Makes the GIF cover the whole screen without stretching */
+    opacity: 0.6; /* Darkens it so the text is easier to read */
+}
+
+.welcome-content {
+    text-align: center;
+    color: #F8F4ED;
+}
+
+.welcome-content h1 {
+    font-size: 4rem;
+    color: #F8F4ED;
+    margin-bottom: 10px;
+}
+
+.enter-button {
+    display: inline-block;
+    margin-top: 30px;
+    padding: 15px 40px;
+    background-color: transparent;
+    color: #F8F4ED;
+    border: 2px solid #F8F4ED;
+    text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    letter-spacing: 2px;
+    transition: all 0.4s ease;
+}
+
+.enter-button:hover {
+    background-color: #F8F4ED;
+    color: #6F4E37;
+}
+
+/* Fading Animations */
+.fade-in {
+    animation: fadeIn ease 2s;
+}
+
+.fade-in-delayed {
+    animation: fadeIn ease 4s;
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
