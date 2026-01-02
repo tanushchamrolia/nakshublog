@@ -381,3 +381,22 @@ footer {
     0% { opacity: 0; }
     100% { opacity: 1; }
 }
+
+
+
+/* Update your hero or welcome background */
+.hero-section, .gif-background {
+    overflow: hidden; /* Clips the edges */
+    position: relative;
+}
+
+.parallax-bg {
+    position: absolute;
+    width: 110%; /* Slightly bigger to allow for "wiggle room" */
+    height: 110%;
+    top: -5%;
+    left: -5%;
+    transition: transform 0.1s ease-out; /* Makes the movement buttery smooth */
+    z-index: -1;
+    pointer-events: none;
+}
