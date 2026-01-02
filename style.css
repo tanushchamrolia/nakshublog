@@ -1,416 +1,286 @@
 /* ------------------------------------------------------------------ */
-/* BASE STYLES */
+/* 1. GLOBAL RESET & FULL-SITE BACKGROUND */
 /* ------------------------------------------------------------------ */
+html, body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+    /* This ensures the footer pushes to the bottom */
+    display: flex;
+    flex-direction: column;
+}
 
 body {
-    background-color: #F8F4ED;
     color: #3D4E40;
     font-family: 'Montserrat', Arial, sans-serif;
     line-height: 1.6;
-    max-width: 1200px; 
-    margin: 0 auto;
-    padding: 20px; 
+    /* Removed max-width here so the background can actually fill the screen */
+}
+
+/* THE MAGIC BACKGROUND: Covers everything, moves with mouse, stays fixed */
+.parallax-bg {
+    position: fixed; 
+    top: -5%;
+    left: -5%;
+    width: 110vw;
+    height: 110vh;
+    background-image: url('images/bg.png');
+    background-size: cover;
+    background-position: center;
+    z-index: -2; /* Pushed furthest back */
+    pointer-events: none;
+    transition: transform 0.1s ease-out;
+}
+
+/* Optional: Subtle overlay so content is readable over the image */
+body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(248, 244, 237, 0.4); /* Matches your beige theme */
+    z-index: -1;
+    pointer-events: none;
 }
 
 /* ------------------------------------------------------------------ */
-/* HEADER & NAVIGATION STYLES (Deep Coffee Brown Bar) */
+/* 2. HEADER & NAVIGATION */
 /* ------------------------------------------------------------------ */
-
 header {
     background-color: #6F4E37; 
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 30px 20px; 
-    border-bottom: 1px solid rgba(255, 255, 255, 0.5); 
-    
-    /* REMOVED GAP: Changed from 40px to 0 to pull content closer */
-    margin-bottom: 0; 
+    padding: 20px 40px; /* More height and side-padding */
+    max-width: 1300px; /* Wider bar means more room for links */
+    margin: 20px auto; 
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
 
-    max-width: 100%;
-    border-radius: 10px; 
+/* Give each section equal weight */
+.nav-left, .nav-right, .logo {
+    flex: 1; 
+    display: flex;
+    align-items: center;
 }
 
 .logo {
-    font-family: 'Lora', Georgia, serif; 
-    font-size: 2.2em;
+    justify-content: center;
+    font-family: 'Lora', serif; 
+    font-size: 1.7rem; 
     color: #F8F4ED;
-    margin: 0 auto; 
+    white-space: nowrap;
+    /* This creates a "no-fly zone" around the logo */
+    padding: 0 30px; 
+}
+
+.nav-left {
+    justify-content: flex-start;
+    gap: 35px; /* Significant gap between Home and Explore */
+}
+
+.nav-right {
+    justify-content: flex-end;
+    gap: 35px; /* Significant gap between Meet the Team and Contact */
 }
 
 nav a {
     text-decoration: none;
     color: #F8F4ED;
-    margin-left: 25px; 
-    font-family: 'Montserrat', Arial, sans-serif;
-    font-size: 0.95em;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9rem;
     font-weight: 500;
-    transition: color 0.3s;
+    letter-spacing: 0.05em; /* Adds tiny gaps between letters for airiness */
+    white-space: nowrap; 
+    transition: 0.3s;
 }
 
 nav a:hover {
-    color: #E7B8B1; 
+    color: #E7B8B1;
 }
 
 /* ------------------------------------------------------------------ */
-/* EXPLORE PAGE STYLES */
+/* 3. HERO SECTION (Home Page) */
+/* ------------------------------------------------------------------ */
+.hero-section {
+    max-width: 1100px;
+    margin: 10px auto; 
+    padding: 50px;
+    /* This solid color feels more like a paper menu or a tablecloth */
+    background-color: #F8F4ED; 
+    /* A very thin, subtle border looks more organic than a blur */
+    border: 1px solid rgba(61, 78, 64, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+    animation: fadeUp 1s ease-out forwards;
+}
+
+.hero-image-container { 
+    flex-basis: 40%; 
+    position: relative;
+}
+
+.cup-illustration { 
+    width: 100%; 
+    height: auto; 
+    display: block;
+    /* Optional: adds a tiny bit of "float" to the cup */
+    filter: drop-shadow(5px 5px 15px rgba(0,0,0,0.1));
+}
+
+.hero-text-block { 
+    flex-basis: 55%; 
+    padding-left: 5%; 
+}
+/* ------------------------------------------------------------------ */
+/* 4. EXPLORE PAGE & CARDS */
+/* ------------------------------------------------------------------ */
+/* ------------------------------------------------------------------ */
+/* EXPLORE PAGE STYLES (Restored & Enhanced) */
 /* ------------------------------------------------------------------ */
 
 .explore-container {
-    /* REMOVED GAP: Changed top padding from 60px to 10px */
-    padding: 10px 20px 60px 20px;
-    max-width: 1000px;
+    padding: 60px 20px;
+    max-width: 1200px; /* Match your header width */
     margin: 0 auto;
     text-align: center;
 }
 
 .explore-header h1 {
     font-family: 'Lora', serif;
-    font-size: 2.5rem;
+    font-size: 2.8rem;
     color: #6F4E37;
-    /* REMOVED GAP: Resetting browser default margin */
-    margin-top: 0; 
     margin-bottom: 10px;
 }
 
-.explore-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-    margin-top: 50px;
+.explore-header p {
+    color: #3D4E40;
+    font-family: 'Montserrat', sans-serif;
+    margin-bottom: 40px;
 }
 
+/* Forces the 3-column layout back */
+.explore-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Exactly 3 columns */
+    gap: 30px;
+    margin-top: 20px;
+}
+
+/* The "Card" look */
 .explore-card {
     background: #fff;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    transition: transform 0.3s ease;
+    padding: 30px 20px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05); /* Soft shadow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     border: 1px solid #f0ece9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .explore-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
 }
 
+/* The Colored Square (Placeholder for images) */
 .card-image {
-    height: 180px;
+    height: 200px;
     width: 100%;
-    border-radius: 8px;
-    margin-bottom: 20px;
+    border-radius: 10px;
+    margin-bottom: 25px;
 }
+
+/* Specific colors for your cards from the screenshot */
+.img-mindset { background-color: #D2B48C; }
+.img-finance { background-color: #8B4513; }
+.img-growth { background-color: #F5F5DC; }
 
 .explore-card h3 {
     font-family: 'Lora', serif;
-    margin-bottom: 10px;
+    font-size: 1.4rem;
+    margin-bottom: 15px;
     color: #333;
 }
 
 .explore-card p {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     color: #666;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
+    flex-grow: 1; /* Keeps the "View Posts" aligned at the bottom */
 }
 
 .explore-card a {
     text-decoration: none;
-    color: #A67B5B;
+    color: #A67B5B; /* Warm tan color */
     font-weight: 600;
-    font-size: 0.85rem;
-    letter-spacing: 1px;
-}
-
-/* ------------------------------------------------------------------ */
-/* HERO SECTION & HOME PAGE */
-/* ------------------------------------------------------------------ */
-
-.hero-section {
-    background-color: #F8F4ED;
-    padding: 60px;
-    border: 1px solid rgba(61, 78, 64, 0.1);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
-    /* REMOVED GAP: Adjusted to match new header flow */
-    margin-top: 10px; 
-    border-radius: 10px;
-    display: flex;
-    justify-content: space-between; 
-    align-items: center; 
-}
-
-.hero-image-container {
-    flex-basis: 40%; 
-    position: relative;
-}
-
-.cup-illustration {
-    width: 100%;
-    height: auto;
-    display: block;
-}
-
-.hero-text-block {
-    flex-basis: 55%; 
-    padding-left: 5%; 
-}
-
-.hero-description {
-    font-size: 1.1em;
-    margin-bottom: 25px;
-}
-
-.read-more a {
-    text-decoration: none;
-    color: #E7B8B1; 
     font-family: 'Montserrat', sans-serif;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    font-size: 0.9em;
-    border-bottom: 2px solid #E7B8B1;
-    padding-bottom: 2px;
+    font-size: 0.9rem;
+    border-bottom: 1px solid transparent;
+    transition: 0.3s;
+}
+
+.explore-card a:hover {
+    border-bottom: 1px solid #A67B5B;
+}
+
+/* Mobile Fix: If the screen is small, stack them */
+@media (max-width: 900px) {
+    .explore-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 /* ------------------------------------------------------------------ */
-/* TYPOGRAPHY */
+/* 5. WELCOME PAGE SPECIFIC (Index.html) */
 /* ------------------------------------------------------------------ */
+.welcome-page-wrapper {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
 
-h1, h2 {
-    font-family: 'Lora', Georgia, serif; 
-    font-weight: bold;
+.welcome-content h1 {
+    font-size: 4rem;
+    color: #6F4E37; /* Coffee brown */
+    margin-bottom: 20px;
+}
+
+.enter-button {
+    padding: 15px 40px;
+    border: 2px solid #6F4E37;
+    text-decoration: none;
     color: #6F4E37;
-    font-size: 3em;
-    margin-bottom: 0.5em;
-}
-
-.accent-text {
-    font-family: 'Montserrat', Arial, sans-serif;
-    font-size: 0.8em;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
     font-weight: 600;
-    color: #3D4E40;
+    transition: 0.4s;
 }
 
-/* ------------------------------------------------------------------ */
-/* COMPONENTS */
-/* ------------------------------------------------------------------ */
-
-footer {
-    text-align: center;
-    margin-top: 40px; 
-}
-
-.post {
-    border: 1px solid rgba(61, 78, 64, 0.2);
-    border-radius: 8px;
-    padding: 20px;
-    margin-top: 20px;
-}
-
-.blue-button {
+.enter-button:hover {
     background-color: #6F4E37;
     color: #F8F4ED;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
 }
 
-.blue-button:hover {
-    background-color: #3D4E40;
-}   
-
-/* Welcome Page Specific Styles */
-.welcome-body {
-    margin: 0;
-    padding: 0;
-    overflow: hidden; /* Stops scrolling on the welcome page */
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #2C1E14; /* Fallback color */
-}
-
-.gif-background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-}
-
-.gif-background img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Makes the GIF cover the whole screen without stretching */
-    opacity: 0.6; /* Darkens it so the text is easier to read */
-}
-
-.welcome-content {
+/* ------------------------------------------------------------------ */
+/* 6. FOOTER & ANIMATIONS */
+/* ------------------------------------------------------------------ */
+footer {
     text-align: center;
-    color: #F8F4ED;
-}
-
-.welcome-content h1 {
-    font-size: 4rem;
-    color: #F8F4ED;
-    margin-bottom: 10px;
-}
-
-.enter-button {
-    display: inline-block;
-    margin-top: 30px;
-    padding: 15px 40px;
-    background-color: transparent;
-    color: #F8F4ED;
-    border: 2px solid #F8F4ED;
-    text-decoration: none;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 600;
-    letter-spacing: 2px;
-    transition: all 0.4s ease;
-}
-
-.enter-button:hover {
-    background-color: #F8F4ED;
+    padding: 40px;
+    margin-top: auto; /* Pushes to bottom */
     color: #6F4E37;
 }
 
-/* Fading Animations */
-.fade-in {
-    animation: fadeIn ease 2s;
-}
-
-.fade-in-delayed {
-    animation: fadeIn ease 4s;
-}
-
-@keyframes fadeIn {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
-}
-
-/* This creates a smooth fade-up effect */
 @keyframes fadeUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
-
-/* Apply it to your hero text and explore cards */
-.hero-text-block, .explore-card {
-    animation: fadeUp 1s ease-out forwards;
-}
-
-/* Welcome Page Specific Styles */
-.welcome-body {
-    margin: 0;
-    padding: 0;
-    overflow: hidden; /* Stops scrolling on the welcome page */
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #2C1E14; /* Fallback color */
-}
-
-.gif-background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-}
-
-.gif-background img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Makes the GIF cover the whole screen without stretching */
-    opacity: 0.6; /* Darkens it so the text is easier to read */
-}
-
-.welcome-content {
-    text-align: center;
-    color: #F8F4ED;
-}
-
-.welcome-content h1 {
-    font-size: 4rem;
-    color: #F8F4ED;
-    margin-bottom: 10px;
-}
-
-.enter-button {
-    display: inline-block;
-    margin-top: 30px;
-    padding: 15px 40px;
-    background-color: transparent;
-    color: #F8F4ED;
-    border: 2px solid #F8F4ED;
-    text-decoration: none;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 600;
-    letter-spacing: 2px;
-    transition: all 0.4s ease;
-}
-
-.enter-button:hover {
-    background-color: #F8F4ED;
-    color: #6F4E37;
-}
-
-/* Fading Animations */
-.fade-in {
-    animation: fadeIn ease 2s;
-}
-
-.fade-in-delayed {
-    animation: fadeIn ease 4s;
-}
-
-@keyframes fadeIn {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
-}
-
-
-.parallax-bg {
-    /* The path must be exact: folder name / filename . extension */
-    background-image: url('images/bg.png'); 
-    background-size: cover;
-    background-position: center;
-    width: 110vw; 
-    height: 110vh;
-    position: absolute;
-    top: -5%;
-    left: -5%;
-    z-index: -1;
-    pointer-events: none;
-}
-
-/* Update your hero or welcome background */
-.hero-section, .gif-background {
-    overflow: hidden; /* Clips the edges */
-    position: relative;
-}
-
-.parallax-bg {
-    position: absolute;
-    width: 110%; /* Slightly bigger to allow for "wiggle room" */
-    height: 110%;
-    top: -5%;
-    left: -5%;
-    transition: transform 0.1s ease-out; /* Makes the movement buttery smooth */
-    z-index: -1;
-    pointer-events: none;
-}
-
