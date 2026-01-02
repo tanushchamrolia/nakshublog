@@ -383,6 +383,19 @@ footer {
 }
 
 
+.parallax-bg {
+    /* The path must be exact: folder name / filename . extension */
+    background-image: url('images/bg.png'); 
+    background-size: cover;
+    background-position: center;
+    width: 110vw; 
+    height: 110vh;
+    position: absolute;
+    top: -5%;
+    left: -5%;
+    z-index: -1;
+    pointer-events: none;
+}
 
 /* Update your hero or welcome background */
 .hero-section, .gif-background {
@@ -400,3 +413,4 @@ footer {
     z-index: -1;
     pointer-events: none;
 }
+
