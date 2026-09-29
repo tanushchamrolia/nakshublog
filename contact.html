@@ -4,13 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact | The Balance Sheet</title>
+    <meta name="description" content="Get in touch with The Balance Sheet.">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%233A2A1E'/%3E%3Cpath d='M18 26h24v12a10 10 0 0 1-10 10h-4a10 10 0 0 1-10-10V26z' fill='none' stroke='%23FAF5EC' stroke-width='3'/%3E%3Cpath d='M42 30h4a5 5 0 0 1 0 10h-4' fill='none' stroke='%23FAF5EC' stroke-width='3'/%3E%3C/svg%3E">
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,600&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="parallax-bg"></div>
+    <div class="ambient"></div>
 
     <header>
         <nav class="nav-left">
@@ -18,45 +20,90 @@
             <a href="explore.html">Explore</a>
         </nav>
 
-        <div class="logo">
-            The Balance Sheet
-        </div>
+        <div class="logo">The Balance Sheet</div>
 
         <nav class="nav-right">
-            <a href="meet the team.html">Our Team</a>
+            <a href="meet-the-team.html">Our Team</a>
             <a href="contact.html" class="active">Contact</a>
         </nav>
     </header>
 
     <main class="explore-container">
-        <div class="hero-section">
-            <div class="hero-text-block" style="flex-basis: 100%; padding-left: 0; text-align: center;">
-                <h2>Get in Touch</h2>
-                
-                <p class="hero-description" style="max-width: 700px; margin: 0 auto 30px auto;">
-                    I love hearing from readers. Whether you have a question about a specific post, 
-                    a suggestion for a future topic, or just want to chat about finance over a virtual coffee, 
-                    feel free to reach out.
+        <div class="contact-layout reveal">
+            <p class="section-kicker">Say Hello</p>
+            <h1>Get in Touch</h1>
+            <p class="hero-description" style="max-width: 560px; margin: 0 auto 10px;">
+                I love hearing from readers — a question about a post, an idea for a future one,
+                or just wanting to chat about finance over a virtual coffee. Send a note below and
+                it'll come straight to me.
+            </p>
+
+            <!--
+                Netlify Forms: no backend code needed. Netlify's build scans this HTML for
+                data-netlify="true" and wires it up automatically. Submissions appear in the
+                Netlify dashboard (Site configuration → Forms) and can trigger an email
+                notification to you from there — nothing to host, no keys to leak.
+                The hidden "bot-field" is a honeypot: real visitors never see or fill it,
+                so any submission that does gets silently rejected as spam.
+            -->
+            <form
+                name="contact"
+                method="POST"
+                data-netlify="true"
+                netlify-honeypot="bot-field"
+                class="contact-form"
+                id="contact-form"
+            >
+                <input type="hidden" name="form-name" value="contact" />
+                <p class="hp-field">
+                    <label>Leave this field blank: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
                 </p>
 
-                <p class="accent-text">SEND AN EMAIL TO:</p>
-                <p class="contact-email-link">
-                    <a href="mailto:hello@thebalancesheet.com" style="color: #6F4E37; font-size: 1.5rem; text-decoration: none; font-weight: 600;">
-                        hello@thebalancesheet.com
-                    </a>
-                </p>
-                
-                <div class="social-links-row" style="margin-top: 30px; display: flex; justify-content: center; gap: 20px;">
-                    <a href="https://instagram.com/n_art2025" target="_blank" class="social-link">Instagram</a>
-                    <a href="#" class="social-link">Twitter</a>
-                    <a href="#" class="social-link">LinkedIn</a>
+                <div class="form-row">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required autocomplete="name">
                 </div>
+
+                <div class="form-row">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required autocomplete="email">
+                </div>
+
+                <div class="form-row">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+
+                <div class="form-submit">
+                    <button type="submit" class="btn">Send Message</button>
+                    <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+                </div>
+            </form>
+
+            <div class="contact-divider">or</div>
+
+            <p class="accent-text">Email Directly</p>
+            <p class="contact-email-link">
+                <a href="mailto:hello@thebalancesheet.com">hello@thebalancesheet.com</a>
+            </p>
+
+            <div class="social-links-row">
+                <a href="https://instagram.com/n_art2025" target="_blank" class="social-link">Instagram</a>
+                <a href="#" class="social-link">Twitter</a>
+                <a href="#" class="social-link">LinkedIn</a>
             </div>
         </div>
     </main>
 
     <footer>
-        <p>©The Balance Sheet</p>
+        <p class="footer-mark">The Balance Sheet</p>
+        <p>© 2026 The Balance Sheet</p>
+        <nav>
+            <a href="home.html">Home</a>
+            <a href="explore.html">Explore</a>
+            <a href="meet-the-team.html">Our Team</a>
+            <a href="contact.html">Contact</a>
+        </nav>
     </footer>
 
     <script src="script.js"></script>

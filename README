@@ -1,1 +1,98 @@
-thebalancesheet.netlify.app
+The Balance Sheet
+==================
+Live site: https://thebalancesheet.netlify.app
+Deploy: push to GitHub main -> Netlify builds and deploys automatically.
+
+FILES
+-----
+index.html            Landing page ("Enter Site")
+home.html             Main homepage
+explore.html          Archive/category page + full post list
+meet-the-team.html    About page
+contact.html          Contact page + form
+post.html             Renders one full post (reads ?post=... from the URL)
+style.css             All styling (one shared stylesheet)
+script.js             Scroll animations, contact form, and post loading
+posts-template.csv    Starter template to import into Google Sheets
+images/               Site images
+
+WRITING & EDITING POSTS (no code, ever, after setup)
+-----------------------------------------------------
+Posts live in a Google Sheet, not in the code. You edit the sheet like
+a normal spreadsheet; the site reads from it automatically. Nobody
+visiting the site can edit that sheet -- only whoever is signed into
+the Google account that owns it (you) can change it. Visitors can only
+ever read it, the same as any public blog.
+
+ONE-TIME SETUP (about 5 minutes):
+
+1. Go to sheets.google.com -> Blank spreadsheet.
+2. File -> Import -> Upload -> pick posts-template.csv from this
+   folder -> Import location: "Replace current sheet". This gives you
+   the right columns plus three example posts to see the format.
+3. Click Share (top right) -> under "General access" change it from
+   "Restricted" to "Anyone with the link" -> make sure the role is
+   "Viewer" (not Editor) -> Done.
+   This is what makes it read-only to everyone but you: the world can
+   only see it, you're still the only one who can type into it.
+4. Copy the Sheet's ID from its URL. A Sheets URL looks like:
+     https://docs.google.com/spreadsheets/d/THIS_LONG_ID_HERE/edit
+   Copy the THIS_LONG_ID_HERE part.
+5. Open script.js, find this line near the top:
+     const POSTS_SHEET_ID = "";
+   Paste your ID between the quotes, save, then commit + push like
+   normal. That's the only code edit you'll ever need to make -- it's
+   a one-time connection, not part of your regular workflow.
+
+YOUR ONGOING WORKFLOW (this is the part you'll actually use):
+
+Open the Google Sheet whenever you want to add or edit a post. Columns:
+
+  Title        The post title.
+  Category     Must be exactly one of: Mindset & Money, Daily Finance,
+               Growth & Learning (matches the colors on the Explore page).
+  Date         e.g. 2026-09-29. Controls sort order (newest first).
+  Summary      One or two sentences shown on the preview card.
+  Image URL    Optional. Paste a direct image link, or leave blank for
+               a plain color block instead.
+  Published    Type "Yes" to make it go live, "No" to keep it a draft
+               that only you can see in the sheet.
+  Body         The full post. Press Alt+Enter (Windows) or
+               Option+Enter (Mac) inside the cell to start a new
+               paragraph -- each one becomes its own paragraph on the
+               site.
+
+Add a new post by adding a new row. Edit an existing post by editing
+its row. Take a post down by switching Published to "No" or deleting
+the row. Changes usually show up within a minute or two of reloading
+the site -- no rebuild or redeploy needed, since the site fetches the
+sheet live each time someone visits.
+
+The three placeholder cards on the homepage disappear automatically
+once you have at least one row with Published set to "Yes".
+
+CONTACT FORM (no backend code needed)
+
+CONTACT FORM (no backend code needed)
+--------------------------------------
+The contact form uses Netlify Forms, a feature built into Netlify
+itself, so there's no server, database, or API key to manage:
+
+1. Netlify scans contact.html when it deploys and notices the
+   <form data-netlify="true"> tag.
+2. Whenever someone submits the form, Netlify saves it for you.
+3. View submissions any time at: Netlify dashboard -> your site ->
+   "Forms".
+4. To get an email every time someone submits: Netlify dashboard ->
+   Forms -> Settings -> "Add notification" -> "Email notification".
+
+Spam protection: there's a hidden "bot-field" input (the honeypot).
+Real visitors never see or fill it in, but spam bots usually fill in
+every field they find -- so if it's ever non-empty, Netlify quietly
+throws the submission away. If spam ever becomes a real problem, you
+can turn on Netlify's optional reCAPTCHA from the same Forms settings
+page -- no code changes required.
+
+Note: the form only works once it's actually deployed on Netlify --
+opening contact.html directly from your computer (or a plain local
+preview) won't submit anywhere, that's expected.

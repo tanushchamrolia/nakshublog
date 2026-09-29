@@ -1,286 +1,819 @@
+/* ==========================================================================
+   THE BALANCE SHEET — design system
+   Warm, editorial, coffee-shop-classic. Built to feel timeless, not trendy.
+   ========================================================================== */
+
+:root {
+    /* Palette */
+    --cream:        #FAF5EC;
+    --cream-deep:   #F1E7D8;
+    --paper:        #FFFDF9;
+    --espresso:     #3A2A1E;
+    --coffee:       #5C4033;
+    --coffee-mid:   #7A5A40;
+    --tan:          #B08968;
+    --sage:         #3D4E40;
+    --ink:          #362A21;
+    --line:         rgba(58, 42, 30, 0.12);
+    --line-strong:  rgba(58, 42, 30, 0.22);
+    --shadow-soft:  0 10px 30px rgba(58, 42, 30, 0.08);
+    --shadow-lift:  0 18px 40px rgba(58, 42, 30, 0.14);
+
+    /* Type */
+    --font-display: 'Lora', Georgia, serif;
+    --font-body: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+
+    /* Rhythm */
+    --radius: 4px;
+    --radius-lg: 10px;
+    --max-width: 1180px;
+}
+
 /* ------------------------------------------------------------------ */
-/* 1. GLOBAL RESET & FULL-SITE BACKGROUND */
+/* RESET & BASE                                                        */
 /* ------------------------------------------------------------------ */
+* { box-sizing: border-box; }
+
+html {
+    scroll-behavior: smooth;
+}
+
 html, body {
     margin: 0;
     padding: 0;
     min-height: 100%;
-    /* This ensures the footer pushes to the bottom */
     display: flex;
     flex-direction: column;
+    background-color: var(--cream);
 }
 
 body {
-    color: #3D4E40;
-    font-family: 'Montserrat', Arial, sans-serif;
-    line-height: 1.6;
-    /* Removed max-width here so the background can actually fill the screen */
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-weight: 400;
+    line-height: 1.7;
+    letter-spacing: 0.01em;
+    position: relative;
+    overflow-x: hidden;
 }
 
-/* THE MAGIC BACKGROUND: Covers everything, moves with mouse, stays fixed */
-.parallax-bg {
-    position: fixed; 
-    top: -5%;
-    left: -5%;
-    width: 110vw;
-    height: 110vh;
-    background-image: url('images/bg.png');
-    background-size: cover;
-    background-position: center;
-    z-index: -2; /* Pushed furthest back */
-    pointer-events: none;
-    transition: transform 0.1s ease-out;
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+
+h1, h2, h3 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    color: var(--espresso);
+    line-height: 1.25;
+    margin: 0 0 0.5em;
 }
 
-/* Optional: Subtle overlay so content is readable over the image */
-body::after {
-    content: "";
+::selection {
+    background: var(--tan);
+    color: var(--paper);
+}
+
+/* ------------------------------------------------------------------ */
+/* AMBIENT TEXTURE — soft, still, never distracting                    */
+/* ------------------------------------------------------------------ */
+.ambient {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(248, 244, 237, 0.4); /* Matches your beige theme */
+    inset: 0;
     z-index: -1;
     pointer-events: none;
+    background-image:
+        radial-gradient(ellipse 60% 45% at 8% 0%, rgba(176, 137, 104, 0.16), transparent 60%),
+        radial-gradient(ellipse 55% 40% at 100% 12%, rgba(61, 78, 64, 0.10), transparent 60%),
+        radial-gradient(ellipse 50% 40% at 15% 100%, rgba(92, 64, 51, 0.10), transparent 60%);
+}
+
+/* A single, faint coffee-ring watermark reused from the old cup pattern spirit — now understated */
+.ambient::after {
+    content: "";
+    position: absolute;
+    top: 62%;
+    right: -6%;
+    width: 420px;
+    height: 420px;
+    border-radius: 50%;
+    border: 22px solid rgba(92, 64, 51, 0.045);
 }
 
 /* ------------------------------------------------------------------ */
-/* 2. HEADER & NAVIGATION */
+/* HEADER & NAVIGATION                                                  */
 /* ------------------------------------------------------------------ */
 header {
-    background-color: #6F4E37; 
+    background-color: var(--espresso);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 40px; /* More height and side-padding */
-    max-width: 1300px; /* Wider bar means more room for links */
-    margin: 20px auto; 
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    padding: 18px 40px;
+    max-width: var(--max-width);
+    width: calc(100% - 40px);
+    margin: 24px auto 10px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
 }
 
-/* Give each section equal weight */
 .nav-left, .nav-right, .logo {
-    flex: 1; 
+    flex: 1;
     display: flex;
     align-items: center;
 }
 
 .logo {
     justify-content: center;
-    font-family: 'Lora', serif; 
-    font-size: 1.7rem; 
-    color: #F8F4ED;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 600;
+    font-size: 1.5rem;
+    color: var(--cream);
     white-space: nowrap;
-    /* This creates a "no-fly zone" around the logo */
-    padding: 0 30px; 
+    padding: 0 20px;
 }
 
-.nav-left {
-    justify-content: flex-start;
-    gap: 35px; /* Significant gap between Home and Explore */
-}
-
-.nav-right {
-    justify-content: flex-end;
-    gap: 35px; /* Significant gap between Meet the Team and Contact */
-}
+.nav-left { justify-content: flex-start; gap: 32px; }
+.nav-right { justify-content: flex-end; gap: 32px; }
 
 nav a {
     text-decoration: none;
-    color: #F8F4ED;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 0.9rem;
+    color: rgba(250, 245, 236, 0.82);
+    font-family: var(--font-body);
+    font-size: 0.82rem;
     font-weight: 500;
-    letter-spacing: 0.05em; /* Adds tiny gaps between letters for airiness */
-    white-space: nowrap; 
-    transition: 0.3s;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    position: relative;
+    padding-bottom: 4px;
+    transition: color 0.25s ease;
 }
 
-nav a:hover {
-    color: #E7B8B1;
+nav a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 1px;
+    background: var(--tan);
+    transition: width 0.25s ease;
+}
+
+nav a:hover,
+nav a.active {
+    color: var(--cream);
+}
+
+nav a:hover::after,
+nav a.active::after {
+    width: 100%;
+}
+
+@media (max-width: 720px) {
+    header {
+        flex-wrap: wrap;
+        gap: 14px;
+        padding: 18px 24px;
+    }
+    .logo { order: -1; flex-basis: 100%; padding: 0 0 8px; }
+    .nav-left, .nav-right { flex: none; gap: 20px; }
 }
 
 /* ------------------------------------------------------------------ */
-/* 3. HERO SECTION (Home Page) */
+/* SHARED TEXT UTILITIES                                                */
+/* ------------------------------------------------------------------ */
+.accent-text {
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--tan);
+    margin: 0 0 14px;
+}
+
+.section-kicker {
+    display: inline-block;
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--coffee-mid);
+    margin-bottom: 10px;
+}
+
+.rule {
+    width: 56px;
+    height: 2px;
+    background: var(--tan);
+    border: none;
+    margin: 18px auto;
+}
+
+.rule.left { margin: 18px 0; }
+
+/* Buttons & links styled like a button */
+.btn {
+    display: inline-block;
+    padding: 14px 34px;
+    border: 1px solid var(--espresso);
+    border-radius: 2px;
+    text-decoration: none;
+    color: var(--espresso);
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    transition: background-color 0.35s ease, color 0.35s ease;
+}
+
+.btn:hover {
+    background-color: var(--espresso);
+    color: var(--cream);
+}
+
+.read-more a, .link-arrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+    color: var(--coffee-mid);
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s ease, gap 0.3s ease;
+}
+
+.read-more a:hover, .link-arrow:hover {
+    border-color: var(--coffee-mid);
+    gap: 10px;
+}
+
+/* ------------------------------------------------------------------ */
+/* SCROLL REVEAL                                                       */
+/* ------------------------------------------------------------------ */
+.reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ------------------------------------------------------------------ */
+/* HERO SECTION (Home)                                                  */
 /* ------------------------------------------------------------------ */
 .hero-section {
-    max-width: 1100px;
-    margin: 10px auto; 
-    padding: 50px;
-    /* This solid color feels more like a paper menu or a tablecloth */
-    background-color: #F8F4ED; 
-    /* A very thin, subtle border looks more organic than a blur */
-    border: 1px solid rgba(61, 78, 64, 0.1);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
-    border-radius: 10px;
+    max-width: var(--max-width);
+    margin: 30px auto;
+    padding: 64px 60px;
+    background-color: var(--paper);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-soft);
+    border-radius: var(--radius-lg);
     display: flex;
-    justify-content: space-between; 
-    align-items: center; 
-    animation: fadeUp 1s ease-out forwards;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
 }
 
-.hero-image-container { 
-    flex-basis: 40%; 
+.hero-image-container {
+    flex-basis: 38%;
     position: relative;
 }
 
-.cup-illustration { 
-    width: 100%; 
-    height: auto; 
+.cup-illustration {
+    width: 100%;
+    height: auto;
     display: block;
-    /* Optional: adds a tiny bit of "float" to the cup */
-    filter: drop-shadow(5px 5px 15px rgba(0,0,0,0.1));
+    filter: drop-shadow(6px 10px 18px rgba(58, 42, 30, 0.12));
 }
 
-.hero-text-block { 
-    flex-basis: 55%; 
-    padding-left: 5%; 
+.hero-text-block {
+    flex-basis: 58%;
 }
-/* ------------------------------------------------------------------ */
-/* 4. EXPLORE PAGE & CARDS */
-/* ------------------------------------------------------------------ */
-/* ------------------------------------------------------------------ */
-/* EXPLORE PAGE STYLES (Restored & Enhanced) */
-/* ------------------------------------------------------------------ */
 
+.hero-text-block h2 {
+    font-size: 2.6rem;
+    margin-bottom: 18px;
+}
+
+.hero-description {
+    font-size: 1.02rem;
+    color: var(--ink);
+    opacity: 0.88;
+    max-width: 46ch;
+}
+
+@media (max-width: 860px) {
+    .hero-section {
+        flex-direction: column;
+        padding: 48px 28px;
+        text-align: center;
+    }
+    .hero-image-container { flex-basis: 60%; max-width: 260px; }
+    .hero-description { max-width: 100%; }
+}
+
+/* ------------------------------------------------------------------ */
+/* RECENT POSTS (Home)                                                  */
+/* ------------------------------------------------------------------ */
+.recent-section {
+    max-width: var(--max-width);
+    margin: 10px auto 40px;
+    padding: 0 40px;
+    text-align: center;
+}
+
+.recent-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 26px;
+    margin-top: 34px;
+    text-align: left;
+}
+
+.post-card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 30px 26px;
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.post-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lift);
+}
+
+.post-card .post-tag {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--tan);
+    margin-bottom: 12px;
+    display: block;
+}
+
+.post-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.post-card p {
+    font-size: 0.92rem;
+    color: var(--ink);
+    opacity: 0.8;
+    margin-bottom: 18px;
+}
+
+.post-card-note {
+    margin-top: 30px;
+    font-size: 0.85rem;
+    color: var(--coffee-mid);
+    font-style: italic;
+}
+
+@media (max-width: 900px) {
+    .recent-grid { grid-template-columns: 1fr; }
+}
+
+/* "All Posts" grid on the Explore page — hidden until real posts load */
+#all-posts-section {
+    display: none;
+    margin-top: 70px;
+    text-align: center;
+}
+
+#all-posts-section.is-active { display: block; }
+
+/* ------------------------------------------------------------------ */
+/* SINGLE POST PAGE                                                     */
+/* ------------------------------------------------------------------ */
+.post-detail-wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.post-detail-wrap h1 {
+    font-size: 2.4rem;
+}
+
+.post-detail-date {
+    color: var(--coffee-mid);
+    font-size: 0.82rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 0;
+}
+
+.post-hero-image {
+    width: 100%;
+    max-height: 380px;
+    object-fit: cover;
+    border-radius: var(--radius-lg);
+    margin: 28px 0 42px;
+    box-shadow: var(--shadow-soft);
+}
+
+.post-hero-fallback {
+    width: 100%;
+    height: 200px;
+    border-radius: var(--radius-lg);
+    margin: 28px 0 42px;
+}
+
+.post-body {
+    text-align: left;
+    font-size: 1.04rem;
+}
+
+.post-body p {
+    margin-bottom: 22px;
+}
+
+/* ------------------------------------------------------------------ */
+/* EXPLORE PAGE                                                         */
+/* ------------------------------------------------------------------ */
 .explore-container {
-    padding: 60px 20px;
-    max-width: 1200px; /* Match your header width */
+    padding: 60px 40px 80px;
+    max-width: var(--max-width);
     margin: 0 auto;
     text-align: center;
 }
 
 .explore-header h1 {
-    font-family: 'Lora', serif;
-    font-size: 2.8rem;
-    color: #6F4E37;
-    margin-bottom: 10px;
+    font-size: 2.6rem;
+    margin-bottom: 12px;
 }
 
 .explore-header p {
-    color: #3D4E40;
-    font-family: 'Montserrat', sans-serif;
-    margin-bottom: 40px;
+    color: var(--ink);
+    opacity: 0.8;
+    margin-bottom: 8px;
+    font-size: 1.02rem;
 }
 
-/* Forces the 3-column layout back */
 .explore-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Exactly 3 columns */
+    grid-template-columns: repeat(3, 1fr);
     gap: 30px;
-    margin-top: 20px;
+    margin-top: 46px;
 }
 
-/* The "Card" look */
 .explore-card {
-    background: #fff;
-    padding: 30px 20px;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05); /* Soft shadow */
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border: 1px solid #f0ece9;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    background: var(--paper);
+    padding: 0 0 30px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+    border: 1px solid var(--line);
+    overflow: hidden;
+    text-align: left;
 }
 
 .explore-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lift);
 }
 
-/* The Colored Square (Placeholder for images) */
 .card-image {
-    height: 200px;
+    height: 150px;
     width: 100%;
-    border-radius: 10px;
-    margin-bottom: 25px;
+    margin-bottom: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
 }
 
-/* Specific colors for your cards from the screenshot */
-.img-mindset { background-color: #D2B48C; }
-.img-finance { background-color: #8B4513; }
-.img-growth { background-color: #F5F5DC; }
+.card-image svg { width: 46px; height: 46px; }
+
+.card-image.tone-a { background: linear-gradient(135deg, #E7D8C3, #C9A87C); }
+.card-image.tone-b { background: linear-gradient(135deg, #7A5A40, #4A3427); }
+.card-image.tone-c { background: linear-gradient(135deg, #D9DCC9, #AEB9A0); }
+
+.card-image.tone-b svg { stroke: #F1E7D8; }
+.card-image.tone-a svg,
+.card-image.tone-c svg { stroke: #3A2A1E; }
+
+.explore-card h3, .explore-card p, .explore-card a {
+    margin-left: 26px;
+    margin-right: 26px;
+}
 
 .explore-card h3 {
-    font-family: 'Lora', serif;
-    font-size: 1.4rem;
-    margin-bottom: 15px;
-    color: #333;
+    font-size: 1.25rem;
+    margin-bottom: 12px;
 }
 
 .explore-card p {
-    font-size: 0.95rem;
-    color: #666;
-    margin-bottom: 25px;
-    flex-grow: 1; /* Keeps the "View Posts" aligned at the bottom */
+    font-size: 0.92rem;
+    color: var(--ink);
+    opacity: 0.8;
+    margin-bottom: 20px;
 }
 
-.explore-card a {
-    text-decoration: none;
-    color: #A67B5B; /* Warm tan color */
-    font-weight: 600;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 0.9rem;
-    border-bottom: 1px solid transparent;
-    transition: 0.3s;
-}
-
-.explore-card a:hover {
-    border-bottom: 1px solid #A67B5B;
-}
-
-/* Mobile Fix: If the screen is small, stack them */
 @media (max-width: 900px) {
-    .explore-grid {
-        grid-template-columns: 1fr;
-    }
+    .explore-grid { grid-template-columns: 1fr; }
 }
 
 /* ------------------------------------------------------------------ */
-/* 5. WELCOME PAGE SPECIFIC (Index.html) */
+/* MEET THE TEAM                                                       */
 /* ------------------------------------------------------------------ */
-.welcome-page-wrapper {
+.team-profile-section .hero-section {
+    align-items: flex-start;
+}
+
+.monogram {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    background: linear-gradient(150deg, var(--cream-deep), var(--paper));
+    border: 1px solid var(--line-strong);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.monogram::before {
+    content: "";
+    position: absolute;
+    inset: 14px;
+    border-radius: 50%;
+    border: 1px dashed var(--line-strong);
+}
+
+.monogram span {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 3.4rem;
+    color: var(--coffee);
+}
+
+/* ------------------------------------------------------------------ */
+/* CONTACT PAGE & FORM                                                  */
+/* ------------------------------------------------------------------ */
+.contact-layout {
+    max-width: 760px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.contact-form {
+    text-align: left;
+    margin-top: 40px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: 44px 48px;
+    box-shadow: var(--shadow-soft);
+}
+
+.form-row {
+    margin-bottom: 26px;
+}
+
+.form-row label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--coffee-mid);
+    margin-bottom: 10px;
+}
+
+.form-row input,
+.form-row textarea {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid var(--line-strong);
+    background: transparent;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--ink);
+    padding: 8px 2px;
+    transition: border-color 0.25s ease;
+}
+
+.form-row input:focus,
+.form-row textarea:focus {
+    outline: none;
+    border-color: var(--coffee);
+}
+
+.form-row textarea {
+    resize: vertical;
+    min-height: 110px;
+}
+
+/* honeypot field — hidden from real visitors, catches bots */
+.hp-field {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+.form-submit {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-top: 8px;
+}
+
+.form-status {
+    font-size: 0.85rem;
+    color: var(--sage);
+}
+
+.form-status.error { color: #A24B3C; }
+
+.contact-divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 46px 0 30px;
+    color: var(--coffee-mid);
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.contact-divider::before,
+.contact-divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--line);
+}
+
+.contact-email-link a {
+    color: var(--coffee);
+    font-size: 1.3rem;
+    text-decoration: none;
+    font-weight: 600;
+    font-family: var(--font-display);
+}
+
+.social-links-row {
+    margin-top: 24px;
+    display: flex;
+    justify-content: center;
+    gap: 26px;
+}
+
+.social-link {
+    text-decoration: none;
+    color: var(--coffee-mid);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s ease;
+}
+
+.social-link:hover { border-color: var(--coffee-mid); }
+
+@media (max-width: 600px) {
+    .contact-form { padding: 32px 24px; }
+}
+
+/* ------------------------------------------------------------------ */
+/* WELCOME / LANDING PAGE (index.html)                                  */
+/* ------------------------------------------------------------------ */
+.welcome-body {
+    background: radial-gradient(ellipse 80% 60% at 50% -10%, #F1E4D0, var(--cream) 60%);
+    height: 100vh;
+    overflow: hidden;
+}
+
+.welcome-overlay {
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
+    position: relative;
+}
+
+.welcome-content {
+    text-align: center;
+    padding: 40px;
+    position: relative;
+    z-index: 2;
+}
+
+.welcome-kicker {
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--tan);
+    margin-bottom: 22px;
 }
 
 .welcome-content h1 {
     font-size: 4rem;
-    color: #6F4E37; /* Coffee brown */
-    margin-bottom: 20px;
+    font-style: italic;
+    color: var(--espresso);
+    margin-bottom: 14px;
+}
+
+.welcome-content p {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--coffee-mid);
+    margin-bottom: 40px;
 }
 
 .enter-button {
-    padding: 15px 40px;
-    border: 2px solid #6F4E37;
+    padding: 16px 44px;
+    border: 1px solid var(--espresso);
     text-decoration: none;
-    color: #6F4E37;
+    color: var(--espresso);
+    font-family: var(--font-body);
+    font-size: 0.8rem;
     font-weight: 600;
-    transition: 0.4s;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 .enter-button:hover {
-    background-color: #6F4E37;
-    color: #F8F4ED;
+    background-color: var(--espresso);
+    color: var(--cream);
+}
+
+/* Decorative steam wisps, drawn purely in CSS/SVG — no external image needed */
+.steam-wrap {
+    position: absolute;
+    top: 14%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 90px;
+    opacity: 0.5;
+    z-index: 1;
+}
+
+.steam-wrap svg { width: 100%; height: 100%; }
+
+.steam-wrap path {
+    stroke: var(--tan);
+    stroke-width: 2;
+    fill: none;
+    stroke-linecap: round;
+}
+
+@media (max-width: 600px) {
+    .welcome-content h1 { font-size: 2.6rem; }
 }
 
 /* ------------------------------------------------------------------ */
-/* 6. FOOTER & ANIMATIONS */
+/* FOOTER                                                               */
 /* ------------------------------------------------------------------ */
 footer {
     text-align: center;
-    padding: 40px;
-    margin-top: auto; /* Pushes to bottom */
-    color: #6F4E37;
+    padding: 50px 20px 40px;
+    margin-top: auto;
+    color: var(--coffee-mid);
+    font-size: 0.85rem;
 }
 
-@keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+footer .footer-mark {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--espresso);
+    margin-bottom: 8px;
 }
+
+footer nav {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 14px;
+}
+
+footer nav a {
+    text-decoration: none;
+    color: var(--coffee-mid);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+footer nav a:hover { color: var(--espresso); }

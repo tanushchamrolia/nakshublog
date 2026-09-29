@@ -4,13 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Balance Sheet | Home</title>
+    <meta name="description" content="A grounded perspective on modern finance — informative, chill, honest.">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%233A2A1E'/%3E%3Cpath d='M18 26h24v12a10 10 0 0 1-10 10h-4a10 10 0 0 1-10-10V26z' fill='none' stroke='%23FAF5EC' stroke-width='3'/%3E%3Cpath d='M42 30h4a5 5 0 0 1 0 10h-4' fill='none' stroke='%23FAF5EC' stroke-width='3'/%3E%3C/svg%3E">
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,600&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="parallax-bg"></div>
+    <div class="ambient"></div>
 
     <header>
         <nav class="nav-left">
@@ -26,26 +28,60 @@
         </nav>
     </header>
 
-    <main class="hero-section">
+    <main class="hero-section reveal">
         <div class="hero-image-container">
-            <img src="images/cup.png" alt="Growth symbol" class="cup-illustration">
+            <img src="images/cup.png" alt="Illustration of a person climbing a ladder into a giant coffee cup" class="cup-illustration">
         </div>
 
         <div class="hero-text-block">
-            <h2>The Balance Sheet</h2>
+            <p class="accent-text">A grounded perspective on modern finance</p>
+            <h2>Finance, one warm cup at a time.</h2>
             <p class="hero-description">
-                The Balance Sheet is my space to talk about finance in our day-to-day lives — informative but chill, honest, and expressive. 
-                The whole look is warm and calm, with brown coffee colors, white, beige, and cream.
+                The Balance Sheet is a space to talk about money in everyday life — informative but
+                chill, honest, and a little expressive. No jargon, no lecturing. Just the kind of
+                conversation you'd have over coffee with a friend who happens to be good with numbers.
             </p>
-            <p class="accent-text">A GROUNDED PERSPECTIVE ON MODERN FINANCE</p>
             <p class="read-more">
-                <a href="#">READ THE POST →</a>
+                <a href="explore.html">Read the latest →</a>
             </p>
         </div>
     </main>
 
+    <section class="recent-section reveal">
+        <p class="section-kicker">Fresh off the press</p>
+        <h2>Recent Reads</h2>
+        <div class="recent-grid" id="recent-posts-grid">
+            <article class="post-card">
+                <span class="post-tag">Mindset &amp; Money</span>
+                <h3>Post coming soon</h3>
+                <p>This spot is ready for your first Mindset &amp; Money post — connect your posts sheet (see the README) and it'll appear here automatically.</p>
+                <a href="explore.html" class="link-arrow">Explore the section →</a>
+            </article>
+            <article class="post-card">
+                <span class="post-tag">Daily Finance</span>
+                <h3>Post coming soon</h3>
+                <p>A placeholder for a Daily Finance post. Once your posts sheet is connected, your real posts replace these automatically.</p>
+                <a href="explore.html" class="link-arrow">Explore the section →</a>
+            </article>
+            <article class="post-card">
+                <span class="post-tag">Growth &amp; Learning</span>
+                <h3>Post coming soon</h3>
+                <p>Reserved for a Growth &amp; Learning post. Publish one in your sheet and it'll show up right here.</p>
+                <a href="explore.html" class="link-arrow">Explore the section →</a>
+            </article>
+        </div>
+        <p class="post-card-note">New posts land here regularly — check back soon.</p>
+    </section>
+
     <footer>
-        <p>©The Balance Sheet</p>
+        <p class="footer-mark">The Balance Sheet</p>
+        <p>© 2026 The Balance Sheet</p>
+        <nav>
+            <a href="home.html">Home</a>
+            <a href="explore.html">Explore</a>
+            <a href="meet-the-team.html">Our Team</a>
+            <a href="contact.html">Contact</a>
+        </nav>
     </footer>
 
     <script src="script.js"></script>
