@@ -497,9 +497,9 @@ nav a.active::after {
 
 .card-image svg { width: 46px; height: 46px; }
 
-.card-image.tone-a { background: linear-gradient(135deg, #E7D8C3, #C9A87C); }
-.card-image.tone-b { background: linear-gradient(135deg, #7A5A40, #4A3427); }
-.card-image.tone-c { background: linear-gradient(135deg, #D9DCC9, #AEB9A0); }
+.tone-a { background: linear-gradient(135deg, #E7D8C3, #C9A87C); }
+.tone-b { background: linear-gradient(135deg, #7A5A40, #4A3427); }
+.tone-c { background: linear-gradient(135deg, #D9DCC9, #AEB9A0); }
 
 .card-image.tone-b svg { stroke: #F1E7D8; }
 .card-image.tone-a svg,

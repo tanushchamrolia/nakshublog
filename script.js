@@ -4,7 +4,7 @@
 // up). Until then this stays blank and the site quietly falls back to
 // the static placeholder posts already written into the HTML.
 // ------------------------------------------------------------------
-const POSTS_SHEET_ID = "";
+const POSTS_SHEET_ID = "1HLti9dIu5B8Z7WJSiq5N1ArrE_LkkxGW_rakZIx3k0I";
 
 function slugify(text) {
     return (text || "")
@@ -51,9 +51,11 @@ function parseGvizResponse(text) {
 function fetchPosts() {
     if (!POSTS_SHEET_ID) return Promise.resolve(null);
 
-    const url = `https://docs.google.com/spreadsheets/d/${POSTS_SHEET_ID}/gviz/tq?tqx=out:json`;
+    // The timestamp keeps every page load on a fresh URL so neither the
+    // browser nor any intermediate cache ever hands back a stale sheet.
+    const url = `https://docs.google.com/spreadsheets/d/${POSTS_SHEET_ID}/gviz/tq?tqx=out:json&_=${Date.now()}`;
 
-    return fetch(url)
+    return fetch(url, { cache: "no-store" })
         .then((res) => {
             if (!res.ok) throw new Error("Sheet fetch failed with status " + res.status);
             return res.text();
@@ -131,9 +133,9 @@ if (postDetail) {
         document.title = post.title + " | The Balance Sheet";
 
         const bodyHtml = post.body
-            .split(/\n\s*\n/)
+            .split(/\n+/)
             .filter((p) => p.trim())
-            .map((para) => "<p>" + escapeHtml(para.trim()).replace(/\n/g, "<br>") + "</p>")
+            .map((para) => "<p>" + escapeHtml(para.trim()) + "</p>")
             .join("");
 
         const mediaHtml = post.image

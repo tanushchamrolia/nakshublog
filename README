@@ -24,25 +24,33 @@ visiting the site can edit that sheet -- only whoever is signed into
 the Google account that owns it (you) can change it. Visitors can only
 ever read it, the same as any public blog.
 
-ONE-TIME SETUP (about 5 minutes):
+SETUP: ALREADY DONE
+--------------------
+Your posts sheet already exists and is connected:
+
+  https://docs.google.com/spreadsheets/d/1HLti9dIu5B8Z7WJSiq5N1ArrE_LkkxGW_rakZIx3k0I/edit
+
+script.js already has its ID wired in (POSTS_SHEET_ID near the top of
+the file), and sharing is set to "Anyone with the link -> Viewer" --
+that's what makes it readable by the site but not editable by anyone
+except your Google account. It already has one real example post in
+it (marked Published) so you can see the format in place -- edit or
+delete that row whenever you're ready.
+
+If you ever need to rebuild it from scratch (new sheet, lost access,
+etc.), here's how:
 
 1. Go to sheets.google.com -> Blank spreadsheet.
 2. File -> Import -> Upload -> pick posts-template.csv from this
    folder -> Import location: "Replace current sheet". This gives you
-   the right columns plus three example posts to see the format.
+   the right columns plus example posts to see the format.
 3. Click Share (top right) -> under "General access" change it from
    "Restricted" to "Anyone with the link" -> make sure the role is
    "Viewer" (not Editor) -> Done.
-   This is what makes it read-only to everyone but you: the world can
-   only see it, you're still the only one who can type into it.
 4. Copy the Sheet's ID from its URL. A Sheets URL looks like:
      https://docs.google.com/spreadsheets/d/THIS_LONG_ID_HERE/edit
-   Copy the THIS_LONG_ID_HERE part.
-5. Open script.js, find this line near the top:
-     const POSTS_SHEET_ID = "";
-   Paste your ID between the quotes, save, then commit + push like
-   normal. That's the only code edit you'll ever need to make -- it's
-   a one-time connection, not part of your regular workflow.
+5. Open script.js, find POSTS_SHEET_ID near the top, and paste the new
+   ID in there, then commit + push.
 
 YOUR ONGOING WORKFLOW (this is the part you'll actually use):
 
@@ -57,8 +65,8 @@ Open the Google Sheet whenever you want to add or edit a post. Columns:
                a plain color block instead.
   Published    Type "Yes" to make it go live, "No" to keep it a draft
                that only you can see in the sheet.
-  Body         The full post. Press Alt+Enter (Windows) or
-               Option+Enter (Mac) inside the cell to start a new
+  Body         The full post. Press Ctrl+Enter (Windows/Linux) or
+               Cmd+Return (Mac) inside the cell to start a new
                paragraph -- each one becomes its own paragraph on the
                site.
 
