@@ -1,88 +1,119 @@
-The Balance Sheet
-==================
-Live site: https://thebalancesheet.netlify.app
+The Art Of...
+=============
+Live site: https://thebalancesheet.netlify.app (rename in Netlify's
+site settings whenever you want a URL that matches the new name).
 Deploy: push to GitHub main -> Netlify builds and deploys automatically.
 
 FILES
 -----
 index.html            Landing page ("Enter Site")
-home.html             Main homepage
-explore.html          Archive/category page + full post list
-meet-the-team.html    About page
-contact.html          Contact page + form
-post.html             Renders one full post (reads ?post=... from the URL)
-style.css             All styling (one shared stylesheet)
-script.js             Scroll animations, contact form, and post loading
-posts-template.csv    Starter template to import into Google Sheets
-images/               Site images
+home.html              Homepage
+gallery.html           Gallery of artwork, with a click-to-enlarge view
+journal.html           Full list of journal entries
+about.html             About page
+contact.html           Contact page + form
+post.html              Renders one full journal entry (?post=... in the URL)
+style.css              All styling (one shared stylesheet)
+script.js              Loads content from Sheets, scroll animations, contact form
+posts-template.csv     Starter template if you ever rebuild the Posts tab
+images/                Site images (mostly unused now -- see note below)
 
-WRITING & EDITING POSTS (no code, ever, after setup)
------------------------------------------------------
-Posts live in a Google Sheet, not in the code. You edit the sheet like
-a normal spreadsheet; the site reads from it automatically. Nobody
-visiting the site can edit that sheet -- only whoever is signed into
-the Google account that owns it (you) can change it. Visitors can only
-ever read it, the same as any public blog.
+THE BIG IDEA: ALMOST EVERYTHING LIVES IN ONE GOOGLE SHEET
+-----------------------------------------------------------
+"The Art Of... — Content" is one Google Sheet with three tabs:
 
-SETUP: ALREADY DONE
---------------------
-Your posts sheet already exists and is connected:
+  Posts          Your journal entries
+  Artwork        Your gallery pieces
+  Page Content   Every other piece of text and link on the site
 
   https://docs.google.com/spreadsheets/d/1HLti9dIu5B8Z7WJSiq5N1ArrE_LkkxGW_rakZIx3k0I/edit
 
-script.js already has its ID wired in (POSTS_SHEET_ID near the top of
-the file), and sharing is set to "Anyone with the link -> Viewer" --
-that's what makes it readable by the site but not editable by anyone
-except your Google account. It already has one real example post in
-it (marked Published) so you can see the format in place -- edit or
-delete that row whenever you're ready.
+script.js already has this sheet's ID wired in (SHEET_ID near the top
+of the file) and sharing is set to "Anyone with the link -> Viewer" --
+that's what makes it readable by the site but editable only by
+whoever is signed into the Google account that owns it (you).
+Visitors can only ever read it, same as any public page.
 
-If you ever need to rebuild it from scratch (new sheet, lost access,
-etc.), here's how:
+The only things NOT editable from the sheet are the site's name ("The
+Art Of...") and the browser-tab titles -- those stay in the HTML on
+purpose, so the brand never disappears by accident.
 
-1. Go to sheets.google.com -> Blank spreadsheet.
-2. File -> Import -> Upload -> pick posts-template.csv from this
-   folder -> Import location: "Replace current sheet". This gives you
-   the right columns plus example posts to see the format.
-3. Click Share (top right) -> under "General access" change it from
-   "Restricted" to "Anyone with the link" -> make sure the role is
-   "Viewer" (not Editor) -> Done.
-4. Copy the Sheet's ID from its URL. A Sheets URL looks like:
-     https://docs.google.com/spreadsheets/d/THIS_LONG_ID_HERE/edit
-5. Open script.js, find POSTS_SHEET_ID near the top, and paste the new
-   ID in there, then commit + push.
+Changes usually show up within a minute of reloading the page -- no
+rebuild or redeploy needed, since the site fetches the sheet fresh
+every time someone visits.
 
-YOUR ONGOING WORKFLOW (this is the part you'll actually use):
-
-Open the Google Sheet whenever you want to add or edit a post. Columns:
-
-  Title        The post title.
-  Category     Must be exactly one of: Mindset & Money, Daily Finance,
-               Growth & Learning (matches the colors on the Explore page).
+TAB 1: POSTS (your journal)
+------------------------------
+  Title        The entry's title.
+  Category     Anything you want (e.g. Process, Life, Inspiration). The
+               site automatically gives each distinct category its own
+               color, so you're not limited to fixed options.
   Date         e.g. 2026-09-29. Controls sort order (newest first).
   Summary      One or two sentences shown on the preview card.
   Image URL    Optional. Paste a direct image link, or leave blank for
                a plain color block instead.
-  Published    Type "Yes" to make it go live, "No" to keep it a draft
-               that only you can see in the sheet.
-  Body         The full post. Press Ctrl+Enter (Windows/Linux) or
+  Published    Type "Yes" to make it go live, "No" to keep it a draft.
+  Body         The full entry. Press Ctrl+Enter (Windows/Linux) or
                Cmd+Return (Mac) inside the cell to start a new
                paragraph -- each one becomes its own paragraph on the
                site.
 
-Add a new post by adding a new row. Edit an existing post by editing
-its row. Take a post down by switching Published to "No" or deleting
-the row. Changes usually show up within a minute or two of reloading
-the site -- no rebuild or redeploy needed, since the site fetches the
-sheet live each time someone visits.
+Add an entry by adding a row. Edit one by editing its row. Take one
+down by switching Published to "No" or deleting the row.
 
-The three placeholder cards on the homepage disappear automatically
-once you have at least one row with Published set to "Yes".
+TAB 2: ARTWORK (your gallery)
+--------------------------------
+  Title          The piece's title.
+  Medium         e.g. Graphite, Oil, Watercolor, Digital.
+  Date           Controls sort order (newest first).
+  Image URL      Required -- a piece with no image never shows up.
+  Description    A sentence or two, shown when someone clicks to
+                 enlarge the piece.
+  Published      "Yes" to show it, "No" to keep it a draft.
+
+Getting an "Image URL": a Google Drive share link does NOT work
+directly (it opens a Drive page, not the raw image). The easiest free
+option is imgur.com -- drag your photo in, no account needed, then
+copy the "Direct Link" it gives you (it ends in .jpg/.png/etc). Paste
+that into the Image URL column.
+
+TAB 3: PAGE CONTENT (everything else)
+----------------------------------------
+Two columns: Key and Value. Each row's Key matches one specific piece
+of text or link on the site -- change the Value and that's what shows
+up. Nothing else about the row matters (order doesn't matter, and nav
+labels, headings, body text, and social links are all mixed together
+in whatever order you like).
+
+A few notable keys:
+  Site / Nav Home, Site / Nav Gallery, etc.   The 5 nav labels
+  Home / Hero Title, Home / Hero Body, etc.   The homepage's main text
+  About / Name, About / Bio Paragraph 1, etc. Your bio
+  About / Photo URL                           Leave blank to keep the
+                                               "ND" monogram, or paste
+                                               an image link to swap in
+                                               a real photo
+  Contact / Email                             Also updates the
+                                               "Email Directly" link
+                                               automatically
+  Contact / Instagram URL, Twitter URL, etc.  Where those buttons go
+
+If you ever delete a row by accident, the site just falls back to
+whatever text is already written into the HTML for that spot -- it
+never breaks or shows blank.
+
+IF YOU EVER NEED TO RECONNECT THE SHEET
+------------------------------------------
+1. Copy the Sheet's ID from its URL:
+     https://docs.google.com/spreadsheets/d/THIS_LONG_ID_HERE/edit
+2. Open script.js, find SHEET_ID near the top, paste the ID in, commit
+   and push.
+3. Make sure the new sheet has three tabs named exactly "Posts",
+   "Artwork", and "Page Content" (tab names are case-sensitive), and
+   that sharing is "Anyone with the link -> Viewer".
 
 CONTACT FORM (no backend code needed)
-
-CONTACT FORM (no backend code needed)
---------------------------------------
+----------------------------------------
 The contact form uses Netlify Forms, a feature built into Netlify
 itself, so there's no server, database, or API key to manage:
 

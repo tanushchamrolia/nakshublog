@@ -1,6 +1,6 @@
 /* ==========================================================================
-   THE BALANCE SHEET — design system
-   Warm, editorial, coffee-shop-classic. Built to feel timeless, not trendy.
+   THE ART OF... — design system
+   Warm, editorial, handmade-but-considered. Built to feel timeless, not trendy.
    ========================================================================== */
 
 :root {
@@ -73,6 +73,8 @@ h1, h2, h3 {
     color: var(--paper);
 }
 
+.is-hidden { display: none !important; }
+
 /* ------------------------------------------------------------------ */
 /* AMBIENT TEXTURE — soft, still, never distracting                    */
 /* ------------------------------------------------------------------ */
@@ -87,7 +89,7 @@ h1, h2, h3 {
         radial-gradient(ellipse 50% 40% at 15% 100%, rgba(92, 64, 51, 0.10), transparent 60%);
 }
 
-/* A single, faint coffee-ring watermark reused from the old cup pattern spirit — now understated */
+/* A single, faint ring watermark — like a stain left on a studio table */
 .ambient::after {
     content: "";
     position: absolute;
@@ -323,7 +325,7 @@ nav a.active::after {
 }
 
 /* ------------------------------------------------------------------ */
-/* RECENT POSTS (Home)                                                  */
+/* RECENT JOURNAL ENTRIES (Home)                                        */
 /* ------------------------------------------------------------------ */
 .recent-section {
     max-width: var(--max-width);
@@ -386,15 +388,6 @@ nav a.active::after {
     .recent-grid { grid-template-columns: 1fr; }
 }
 
-/* "All Posts" grid on the Explore page — hidden until real posts load */
-#all-posts-section {
-    display: none;
-    margin-top: 70px;
-    text-align: center;
-}
-
-#all-posts-section.is-active { display: block; }
-
 /* ------------------------------------------------------------------ */
 /* SINGLE POST PAGE                                                     */
 /* ------------------------------------------------------------------ */
@@ -441,7 +434,7 @@ nav a.active::after {
 }
 
 /* ------------------------------------------------------------------ */
-/* EXPLORE PAGE                                                         */
+/* SHARED PAGE HEADER (Gallery / Journal / About)                       */
 /* ------------------------------------------------------------------ */
 .explore-container {
     padding: 60px 40px 80px;
@@ -527,7 +520,7 @@ nav a.active::after {
 }
 
 /* ------------------------------------------------------------------ */
-/* MEET THE TEAM                                                       */
+/* ABOUT PAGE                                                           */
 /* ------------------------------------------------------------------ */
 .team-profile-section .hero-section {
     align-items: flex-start;
@@ -558,6 +551,15 @@ nav a.active::after {
     font-style: italic;
     font-size: 3.4rem;
     color: var(--coffee);
+}
+
+.about-photo {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid var(--line-strong);
+    box-shadow: var(--shadow-soft);
 }
 
 /* ------------------------------------------------------------------ */
@@ -757,25 +759,26 @@ nav a.active::after {
     color: var(--cream);
 }
 
-/* Decorative steam wisps, drawn purely in CSS/SVG — no external image needed */
-.steam-wrap {
+/* Decorative brushstroke flourish, drawn purely in SVG — no external image needed */
+.intro-flourish {
     position: absolute;
     top: 14%;
     left: 50%;
     transform: translateX(-50%);
-    width: 60px;
-    height: 90px;
-    opacity: 0.5;
+    width: 90px;
+    height: 60px;
+    opacity: 0.6;
     z-index: 1;
 }
 
-.steam-wrap svg { width: 100%; height: 100%; }
+.intro-flourish svg { width: 100%; height: 100%; }
 
-.steam-wrap path {
+.intro-flourish path {
     stroke: var(--tan);
     stroke-width: 2;
     fill: none;
     stroke-linecap: round;
+    stroke-linejoin: round;
 }
 
 @media (max-width: 600px) {
@@ -817,3 +820,128 @@ footer nav a {
 }
 
 footer nav a:hover { color: var(--espresso); }
+
+/* ------------------------------------------------------------------ */
+/* GALLERY                                                              */
+/* ------------------------------------------------------------------ */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    margin-top: 46px;
+    text-align: left;
+}
+
+.gallery-card {
+    margin: 0;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+    cursor: pointer;
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.gallery-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lift);
+}
+
+.gallery-card img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+}
+
+.gallery-card figcaption {
+    padding: 18px 20px 22px;
+}
+
+.gallery-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 6px;
+}
+
+.gallery-medium {
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--tan);
+}
+
+.gallery-empty-note {
+    margin-top: 40px;
+    color: var(--coffee-mid);
+    font-style: italic;
+}
+
+@media (max-width: 900px) {
+    .gallery-grid { grid-template-columns: 1fr; }
+}
+
+/* Lightbox — click a gallery piece to view it larger */
+.lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(58, 42, 30, 0.88);
+    z-index: 100;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.lightbox.is-open { display: flex; }
+
+.lightbox-content {
+    max-width: 900px;
+    max-height: 90vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+}
+
+.lightbox-content img {
+    max-width: 100%;
+    max-height: 65vh;
+    object-fit: contain;
+    border-radius: var(--radius);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+.lightbox-caption {
+    text-align: center;
+    color: var(--paper);
+}
+
+.lightbox-caption h3 {
+    color: var(--paper);
+    font-size: 1.3rem;
+    margin-bottom: 6px;
+}
+
+.lightbox-caption .gallery-medium {
+    color: var(--tan);
+}
+
+.lightbox-caption p {
+    margin-top: 10px;
+    color: rgba(255, 253, 249, 0.85);
+    max-width: 60ch;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 24px;
+    right: 32px;
+    color: var(--paper);
+    font-size: 2rem;
+    line-height: 1;
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-family: var(--font-body);
+}
