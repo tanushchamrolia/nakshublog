@@ -4,20 +4,20 @@
    ========================================================================== */
 
 :root {
-    /* Palette */
-    --cream:        #FAF5EC;
-    --cream-deep:   #F1E7D8;
-    --paper:        #FFFDF9;
-    --espresso:     #3A2A1E;
-    --coffee:       #5C4033;
-    --coffee-mid:   #7A5A40;
-    --tan:          #B08968;
+    /* Palette — deep burgundy & cream, sampled from the brand wordmark */
+    --cream:        #F8F2E8;
+    --cream-deep:   #EFDCD6;
+    --paper:        #FFFCF8;
+    --espresso:     #4D1020;
+    --coffee:       #6B1A2E;
+    --coffee-mid:   #8C3B4E;
+    --tan:          #C2A06B;
     --sage:         #3D4E40;
-    --ink:          #362A21;
-    --line:         rgba(58, 42, 30, 0.12);
-    --line-strong:  rgba(58, 42, 30, 0.22);
-    --shadow-soft:  0 10px 30px rgba(58, 42, 30, 0.08);
-    --shadow-lift:  0 18px 40px rgba(58, 42, 30, 0.14);
+    --ink:          #35222A;
+    --line:         rgba(77, 16, 32, 0.12);
+    --line-strong:  rgba(77, 16, 32, 0.22);
+    --shadow-soft:  0 10px 30px rgba(77, 16, 32, 0.08);
+    --shadow-lift:  0 18px 40px rgba(77, 16, 32, 0.14);
 
     /* Type */
     --font-display: 'Lora', Georgia, serif;
@@ -84,9 +84,9 @@ h1, h2, h3 {
     z-index: -1;
     pointer-events: none;
     background-image:
-        radial-gradient(ellipse 60% 45% at 8% 0%, rgba(176, 137, 104, 0.16), transparent 60%),
-        radial-gradient(ellipse 55% 40% at 100% 12%, rgba(61, 78, 64, 0.10), transparent 60%),
-        radial-gradient(ellipse 50% 40% at 15% 100%, rgba(92, 64, 51, 0.10), transparent 60%);
+        radial-gradient(ellipse 60% 45% at 8% 0%, rgba(194, 160, 107, 0.16), transparent 60%),
+        radial-gradient(ellipse 55% 40% at 100% 12%, rgba(140, 59, 78, 0.10), transparent 60%),
+        radial-gradient(ellipse 50% 40% at 15% 100%, rgba(107, 26, 46, 0.10), transparent 60%);
 }
 
 /* A single, faint ring watermark — like a stain left on a studio table */
@@ -98,7 +98,7 @@ h1, h2, h3 {
     width: 420px;
     height: 420px;
     border-radius: 50%;
-    border: 22px solid rgba(92, 64, 51, 0.045);
+    border: 22px solid rgba(77, 16, 32, 0.05);
 }
 
 /* ------------------------------------------------------------------ */
@@ -490,13 +490,13 @@ nav a.active::after {
 
 .card-image svg { width: 46px; height: 46px; }
 
-.tone-a { background: linear-gradient(135deg, #E7D8C3, #C9A87C); }
-.tone-b { background: linear-gradient(135deg, #7A5A40, #4A3427); }
-.tone-c { background: linear-gradient(135deg, #D9DCC9, #AEB9A0); }
+.tone-a { background: linear-gradient(135deg, #E8D2C0, #C2A06B); }
+.tone-b { background: linear-gradient(135deg, #8C3B4E, #4D1020); }
+.tone-c { background: linear-gradient(135deg, #DEC9CD, #A8798A); }
 
-.card-image.tone-b svg { stroke: #F1E7D8; }
+.card-image.tone-b svg { stroke: #F8F2E8; }
 .card-image.tone-a svg,
-.card-image.tone-c svg { stroke: #3A2A1E; }
+.card-image.tone-c svg { stroke: #4D1020; }
 
 .explore-card h3, .explore-card p, .explore-card a {
     margin-left: 26px;
@@ -697,7 +697,7 @@ nav a.active::after {
 /* WELCOME / LANDING PAGE (index.html)                                  */
 /* ------------------------------------------------------------------ */
 .welcome-body {
-    background: radial-gradient(ellipse 80% 60% at 50% -10%, #F1E4D0, var(--cream) 60%);
+    background: radial-gradient(ellipse 90% 70% at 50% 25%, #5C1428, var(--espresso) 70%);
     height: 100vh;
     overflow: hidden;
 }
@@ -728,7 +728,7 @@ nav a.active::after {
 .welcome-content h1 {
     font-size: 4rem;
     font-style: italic;
-    color: var(--espresso);
+    color: var(--cream);
     margin-bottom: 14px;
 }
 
@@ -737,15 +737,15 @@ nav a.active::after {
     font-size: 0.95rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--coffee-mid);
+    color: var(--tan);
     margin-bottom: 40px;
 }
 
 .enter-button {
     padding: 16px 44px;
-    border: 1px solid var(--espresso);
+    border: 1px solid var(--cream);
     text-decoration: none;
-    color: var(--espresso);
+    color: var(--cream);
     font-family: var(--font-body);
     font-size: 0.8rem;
     font-weight: 600;
@@ -755,8 +755,8 @@ nav a.active::after {
 }
 
 .enter-button:hover {
-    background-color: var(--espresso);
-    color: var(--cream);
+    background-color: var(--cream);
+    color: var(--espresso);
 }
 
 /* Decorative brushstroke flourish, drawn purely in SVG — no external image needed */
